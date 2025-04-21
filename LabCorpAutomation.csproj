@@ -15,10 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Reports\" />
-    <Folder Include="Resources\" />
-    <Folder Include="Utils\" />
-    <Folder Include="Support\" />
+    <None Include=".github\workflows\dotnet-ci.yml" />
   </ItemGroup>
 
 </Project>

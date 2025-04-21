@@ -155,24 +155,12 @@ namespace LabCorpAutomation.StepDefinitions
             }
 
             Console.WriteLine($"{actualTitle} {actualLocation} {actualJobId}");
-            //string actualDescription = JobDetailsPage.GetDescription();
-
-            //Console.WriteLine("Validating Job Details on Detail Page:");
-            //Console.WriteLine($"Expected Title: {expectedTitle}, Actual Title: {actualTitle}");
-            //Console.WriteLine($"Expected Location: {expectedLocation}, Actual Location: {actualLocation}");
-            //Console.WriteLine($"Expected JobId: {expectedJobId}, Actual JobId: {actualJobId}");
-            //Console.WriteLine($"Expected Description starts with: {expectedDescription.Substring(0, 20)}");
-            //Console.WriteLine($"Actual Description starts with: {actualDescription.Substring(0, 20)}");
 
             Assert.Multiple(() =>
             {
                 Assert.That(actualTitle, Is.EqualTo(expectedTitle), "Job Title does not match");
                 Assert.That(actualLocation, Is.EqualTo(expectedLocation), "Job Location does not match");
                 Assert.That(actualJobId, Is.EqualTo(expectedJobId), "Job ID does not match");
-
-                // Partial description match (e.g., first 30 characters)
-                //Assert.That(actualDescription.StartsWith(expectedDescription.Substring(0, Math.Min(30, expectedDescription.Length))),
-                //            Is.True, "Job Description does not match");
             });
         }
 
