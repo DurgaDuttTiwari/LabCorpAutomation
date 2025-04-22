@@ -88,7 +88,7 @@ namespace LabCorpAutomation.StepDefinitions
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
             var searchBox = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(CarreersPage.Searchbox));
-
+            Thread.Sleep(2000);
             searchBox.Click();
             searchBox.SendKeys(p0);
 
