@@ -20,16 +20,16 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore LabCorpAutomation/LabCorpAutomation.csproj
+        run: dotnet restore LabCorpAutomation.csproj
 
       - name: Build project
-        run: dotnet build LabCorpAutomation/LabCorpAutomation.csproj --configuration Debug --no-restore
+        run: dotnet build LabCorpAutomation.csproj --no-restore
 
       - name: Run tests
-        run: dotnet test LabCorpAutomation/LabCorpAutomation.csproj --no-build --logger "trx;LogFileName=test-results.trx" --results-directory TestResults
+        run: dotnet test LabCorpAutomation.csproj --no-build --logger "trx;LogFileName=test-results.trx" --results-directory TestResults
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v4  # ✅ pin exact version for reliability
         with:
           name: test-results
-          path: TestResults/
+          path: '**/TestResults/*.trx'
