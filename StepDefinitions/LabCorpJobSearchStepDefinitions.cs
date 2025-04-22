@@ -85,9 +85,18 @@ namespace LabCorpAutomation.StepDefinitions
         [Then("I search for {string}")]
         public void ThenISearchFor(string p0)
         {
-            CarreersPage.Searchbox.SendKeys(p0);
-            Thread.Sleep(5000);
-            actions.SendKeys(Keys.ArrowDown).SendKeys(Keys.Enter).Perform();
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+
+            var searchBox = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(CarreersPage.Searchbox));
+
+            searchBox.Click();
+            searchBox.SendKeys(p0);
+
+            Thread.Sleep(2000);
+
+            actions.SendKeys(Keys.ArrowDown)
+                   .SendKeys(Keys.Enter)
+                   .Perform();
         }
 
 
