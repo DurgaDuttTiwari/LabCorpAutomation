@@ -86,7 +86,6 @@ namespace LabCorpAutomation.StepDefinitions
         public void ThenISearchFor(string p0)
         {
             Console.WriteLine("Career page URL: " + driver.Url);
-            driver.Navigate().Refresh();
             Thread.Sleep(2000);
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
