@@ -67,7 +67,7 @@ namespace LabCorpAutomation.StepDefinitions
         public void ThenCareerPageOpenedInNewTab()
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            wait.Until(driver => driver.WindowHandles.Count > 1);
+            wait.Until(driver => driver.WindowHandles.Count == 2);
 
 
             // Switch to the new tab
@@ -85,6 +85,8 @@ namespace LabCorpAutomation.StepDefinitions
         [Then("I search for {string}")]
         public void ThenISearchFor(string p0)
         {
+            driver.Navigate().Refresh();
+            Thread.Sleep(2000);
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
             var searchBox = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(CarreersPage.Searchbox));
