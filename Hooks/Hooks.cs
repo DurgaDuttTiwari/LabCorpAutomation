@@ -10,7 +10,7 @@ namespace LabCorpAutomation.Hooks
 
         private readonly ScenarioContext _scenarioContext;
         private readonly FeatureContext _featureContext;
-        private WebDriverManager _webDriverManager;
+        private WebDriverManager? _webDriverManager;
 
         public Hooks(ScenarioContext scenarioContext, FeatureContext featureContext)
         {

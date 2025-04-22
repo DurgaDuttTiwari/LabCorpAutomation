@@ -91,10 +91,10 @@ namespace LabCorpAutomation.StepDefinitions
         }
 
 
-        private string expectedTitle;
-        private string expectedLocation;
-        private string expectedJobId;
-        private string expectedDescription;
+        private string? expectedTitle;
+        private string? expectedLocation;
+        private string? expectedJobId;
+        //private string expectedDescription;
 
         [Then("I fetch the first job details")]
         public void ThenIFetchTheFirstJobDetails()
