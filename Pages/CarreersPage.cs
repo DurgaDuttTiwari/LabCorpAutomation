@@ -33,10 +33,5 @@ namespace LabCorpAutomation.Pages
 
             return (title, location, jobId);
         }
-
-
-
-
-
     }
 }
