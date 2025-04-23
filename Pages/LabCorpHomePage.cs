@@ -21,8 +21,5 @@ namespace LabCorpAutomation.Pages
         public IWebElement OpenglobalNavigation => driver.FindElement(By.XPath("//button[@aria-label='Open global Navigation']")); //Using first type of By
         public IWebElement CareersLink => driver.FindElement(By.LinkText("Careers"));  // use of Second By
 
-
-
-
     }
 }

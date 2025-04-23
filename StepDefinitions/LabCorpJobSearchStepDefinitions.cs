@@ -80,13 +80,6 @@ namespace LabCorpAutomation.StepDefinitions
             Console.WriteLine("Career page URL: " + driver.Url);
             Assert.That(driver.Url.Contains("careers.labcorp.com"), Is.True, "Career page not opened correctly.");
 
-            Console.WriteLine("clicking on the search icon");
-            CarreersPage.searchIcon.Click();
-            Console.WriteLine("clicked on the search icon");
-
-            Console.WriteLine("clicking on the search bar");
-            CarreersPage.Searchbox.Click();
-            Console.WriteLine("clicked on the search bar");
         }
 
 
@@ -94,14 +87,15 @@ namespace LabCorpAutomation.StepDefinitions
         public void ThenISearchFor(string p0)
         {
             Console.WriteLine("Career page URL: " + driver.Url);
-            Thread.Sleep(2000);
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
+            var searchBar = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(CarreersPage.Searchbox));
             var searchBox = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(CarreersPage.Searchbox));
-            Thread.Sleep(2000);
+            
+            searchBar.Click();
+
             searchBox.Click();
             searchBox.SendKeys(p0);
-            Thread.Sleep(1000);
             actions.SendKeys(Keys.ArrowDown)
                    .SendKeys(Keys.Enter)
                    .Perform();
@@ -113,7 +107,6 @@ namespace LabCorpAutomation.StepDefinitions
         private string? expectedTitle;
         private string? expectedLocation;
         private string? expectedJobId;
-        //private string expectedDescription;
 
         [Then("I fetch the first job details")]
         public void ThenIFetchTheFirstJobDetails()
@@ -123,7 +116,6 @@ namespace LabCorpAutomation.StepDefinitions
             expectedTitle = details.title;
             expectedLocation = details.location;
             expectedJobId = details.jobId;
-            //expectedDescription = details.description;
         }
 
         [Then("I click on the job title")]
@@ -142,10 +134,6 @@ namespace LabCorpAutomation.StepDefinitions
             Console.WriteLine("Career page URL: " + driver.Url);
             Assert.That(driver.Url.Contains("careers.labcorp.com/global/en/job"), Is.True, "job page not opened correctly.");
         }
-
-
-
-
 
         [Then("I open the job details page")]
         public void ThenIOpenTheJobDetailsPage()
