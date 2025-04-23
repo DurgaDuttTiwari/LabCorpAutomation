@@ -22,8 +22,10 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore LabCorpAutomation.csproj
 
-      - name: Kill any running Chrome processes (Linux)
-        run: pkill -f chrome || true
+      - name: Kill Chrome (Windows)
+        run: | 
+             Get-Process chrome -ErrorAction SilentlyContinue | ForEach-Object { $_.Kill() }
+        shell: pwsh
 
       - name: Build project
         run: dotnet build LabCorpAutomation.csproj --no-restore
