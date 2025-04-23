@@ -79,6 +79,10 @@ namespace LabCorpAutomation.StepDefinitions
 
             Console.WriteLine("Career page URL: " + driver.Url);
             Assert.That(driver.Url.Contains("careers.labcorp.com"), Is.True, "Career page not opened correctly.");
+
+            Console.WriteLine("clicking on the search box");
+            CarreersPage.Searchbox.Click();
+            Console.WriteLine("clicked on the search box");
         }
 
 
