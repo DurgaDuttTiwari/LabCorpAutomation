@@ -80,6 +80,7 @@ namespace LabCorpAutomation.StepDefinitions
             Console.WriteLine("Career page URL: " + driver.Url);
             Assert.That(driver.Url.Contains("careers.labcorp.com"), Is.True, "Career page not opened correctly.");
 
+            CarreersPage.searchIcon.Click();
         }
 
 
@@ -89,10 +90,10 @@ namespace LabCorpAutomation.StepDefinitions
             Console.WriteLine("Career page URL: " + driver.Url);
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
-            var searchBar = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(CarreersPage.Searchbox));
+            //var searchBar = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(CarreersPage.Searchbox));
             var searchBox = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(CarreersPage.Searchbox));
             
-            searchBar.Click();
+            //searchBar.Click();
 
             searchBox.Click();
             searchBox.SendKeys(p0);
