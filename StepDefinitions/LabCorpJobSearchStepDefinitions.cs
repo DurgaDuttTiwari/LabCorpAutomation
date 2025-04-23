@@ -1,10 +1,10 @@
-using System;
 using LabCorpAutomation.Pages;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using Reqnroll;
+using SeleniumExtras.WaitHelpers;
 
 namespace LabCorpAutomation.StepDefinitions
 {
@@ -52,7 +52,7 @@ namespace LabCorpAutomation.StepDefinitions
         public void ThenINavihateToCarrerLink()
         {
             Thread.Sleep(1000);
-            actions.MoveToElement(LabCorpHomePage.CareersLink).ScrollByAmount(0,300).Perform();
+            actions.MoveToElement(LabCorpHomePage.CareersLink).ScrollByAmount(0, 300).Perform();
         }
 
 
@@ -77,6 +77,10 @@ namespace LabCorpAutomation.StepDefinitions
             // Check if the URL is correct
             wait.Until(driver => driver.Url.Contains("careers.labcorp.com"));
 
+            // Wait until the page is fully loaded
+            wait.Until(d => ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").ToString() == "complete");
+
+
             Console.WriteLine("Career page URL: " + driver.Url);
             Assert.That(driver.Url.Contains("careers.labcorp.com"), Is.True, "Career page not opened correctly.");
         }
@@ -86,19 +90,34 @@ namespace LabCorpAutomation.StepDefinitions
         public void ThenISearchFor(string p0)
         {
             Console.WriteLine("Career page URL: " + driver.Url);
-            Thread.Sleep(2000);
-            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            //Thread.Sleep(2000);
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
 
-            var searchBox = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(CarreersPage.Searchbox));
-            Thread.Sleep(2000);
-            searchBox.Click();
-            searchBox.SendKeys(p0);
+            try
+            {
+                // Wait until the search box is visible
+                Console.WriteLine("Waiting for search box to become visible...");
+                var searchBox = wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("typehead")));
 
-            Thread.Sleep(2000);
 
-            actions.SendKeys(Keys.ArrowDown)
-                   .SendKeys(Keys.Enter)
-                   .Perform();
+                Console.WriteLine("Search box found, entering search text...");
+                searchBox.Click();
+                searchBox.SendKeys(p0);
+
+                // Add small delay to simulate typing, if needed
+                Thread.Sleep(1000);
+
+                actions.SendKeys(Keys.ArrowDown)
+                       .SendKeys(Keys.Enter)
+                       .Perform();
+
+                Console.WriteLine("Search performed for: " + p0);
+            }
+            catch (WebDriverTimeoutException ex)
+            {
+                Console.WriteLine("Timeout while waiting for the search box: " + ex.Message);
+                throw;
+            }
         }
 
 
@@ -128,7 +147,7 @@ namespace LabCorpAutomation.StepDefinitions
         public void ThenTheJobIsOpened()
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            
+
             wait.Until(driver => driver.Url.Contains("careers.labcorp.com/global/en/job/"));
 
             Console.WriteLine("Career page URL: " + driver.Url);
@@ -137,7 +156,7 @@ namespace LabCorpAutomation.StepDefinitions
 
 
 
-        
+
 
         [Then("I open the job details page")]
         public void ThenIOpenTheJobDetailsPage()
@@ -158,7 +177,7 @@ namespace LabCorpAutomation.StepDefinitions
             string actualLocation = JobDetailsPage.GetLocation();
             string actualJobId = JobDetailsPage.GetJobId();
 
-            
+
 
             if (actualJobId.StartsWith("Job ID"))
             {
