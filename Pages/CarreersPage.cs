@@ -13,6 +13,7 @@ namespace LabCorpAutomation.Pages
         }
 
 
+        public IWebElement searchIcon => driver.FindElement(By.XPath("//i[@class='icon icon-search']"));
         public IWebElement Searchbox => driver.FindElement(By.Id("typehead"));
 
         public IWebElement firstJob => driver.FindElement(By.XPath("(//a[contains(@class, 'au-target') and contains(@href, 'job')]/div[contains(@class, 'job-title')]/span)[1]"));
