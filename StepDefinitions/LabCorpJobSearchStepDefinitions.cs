@@ -105,6 +105,7 @@ namespace LabCorpAutomation.StepDefinitions
                 searchBox.SendKeys(p0);
 
                 // Add small delay to simulate typing, if needed
+
                 Thread.Sleep(1000);
 
                 actions.SendKeys(Keys.ArrowDown)
