@@ -4,7 +4,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using Reqnroll;
-using SeleniumExtras.WaitHelpers;
 
 namespace LabCorpAutomation.StepDefinitions
 {
@@ -80,7 +79,17 @@ namespace LabCorpAutomation.StepDefinitions
             Console.WriteLine("Career page URL: " + driver.Url);
             Assert.That(driver.Url.Contains("careers.labcorp.com"), Is.True, "Career page not opened correctly.");
 
-            CarreersPage.searchIcon.Click();
+            try
+            {
+                CarreersPage.searchIcon1.Click();
+            }
+            catch (ElementNotInteractableException)
+            {
+
+                Console.WriteLine("First XPath not interactable, trying the second XPath...");
+
+                CarreersPage.searchIcon2.Click();
+            }
         }
 
 
@@ -92,7 +101,7 @@ namespace LabCorpAutomation.StepDefinitions
 
             //var searchBar = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(CarreersPage.Searchbox));
             var searchBox = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(CarreersPage.Searchbox));
-            
+
             //searchBar.Click();
 
             searchBox.Click();
